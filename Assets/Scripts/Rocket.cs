@@ -10,7 +10,7 @@ public class Rocket : MonoBehaviour {
 	void Start () 
     {
         rigidBody = GetComponent<Rigidbody>();
-        audioSourceThrust = GetComponent<AudioSource>()
+        audioSourceThrust = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -24,7 +24,16 @@ public class Rocket : MonoBehaviour {
         if (Input.GetKey(KeyCode.Space))
         {
             rigidBody.AddRelativeForce(Vector3.up);
-            audioSourceThrust.Play();
+
+            if (!audioSourceThrust.isPlaying)
+            {
+                audioSourceThrust.Play();
+            }
+        }
+
+        else
+        {
+            audioSourceThrust.Stop();
         }
         if (Input.GetKey(KeyCode.A))
         {
