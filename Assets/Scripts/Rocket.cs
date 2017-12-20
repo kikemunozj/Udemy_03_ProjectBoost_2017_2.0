@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour {
 
@@ -8,6 +9,9 @@ public class Rocket : MonoBehaviour {
 
    [SerializeField] float rcsThrust = 100f;
    [SerializeField] float rocketThrust = 100f;
+
+    enum State { Alive, Dying, Transcending };
+    State state = State.Alive;
 
 	// Use this for initialization
 	void Start () 
@@ -19,24 +23,49 @@ public class Rocket : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        Rotate();
-        Thrust();
+        if ( state == State.Alive )
+        {
+            Rotate();
+            Thrust();
+        }
+       
        
 	}
 
     void OnCollisionEnter(Collision collision)
     {
+        if (state != State.Alive)
+        {
+            return;
+        }
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                print("OK");
+               
+                break;
+            case "Finish":
+                state = State.Transcending;
+                Invoke("LoadNextScene", 1f);
                 break;
             default:
-                print("DEAD");
+                state = State.Dying;
+                Invoke("LoadStart", 1f);
                 break;
-                
+
         }
     }
+
+
+    private void LoadNextScene()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    private void LoadStart()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 
     private void Rotate()
     {

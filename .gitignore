@@ -33,3 +33,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Particles/EffectExamples
+Assets/Particles/PostProcessing
+Assets/Skies/Arkham Interactive
