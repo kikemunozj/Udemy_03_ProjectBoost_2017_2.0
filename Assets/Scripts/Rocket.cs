@@ -7,8 +7,9 @@ public class Rocket : MonoBehaviour {
     Rigidbody rigidBody;
     AudioSource audioSourceThrust;
 
-   [SerializeField] float rcsThrust = 100f;
-   [SerializeField] float rocketThrust = 100f;
+    [SerializeField] float rcsThrust = 100f;
+    [SerializeField] float rocketThrust = 100f;
+    [SerializeField] AudioClip mainEngine;
 
     enum State { Alive, Dying, Transcending };
     State state = State.Alive;
